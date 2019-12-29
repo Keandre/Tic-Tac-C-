@@ -12,5 +12,5 @@ Tic Tac C++ is a Tic Tac Toe terminal application that allows two players or an 
 • Color
 
 
-##Usage
+## Usage
 Download the source code and play with your friends!
