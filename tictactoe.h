@@ -90,8 +90,7 @@ class tictactoe{
 		}
 	}
 	
-	void chooseSymbolOnePlayer(){
-		playSymbols = {'X','O','@','$','%','&'};			
+	void chooseSymbolOnePlayer(){		
 		std::string choice="";
 		std::cout<<"Player One, type in the symbol you would like out of these:\n";
 		for(char symbol : playSymbols){
@@ -108,33 +107,9 @@ class tictactoe{
 				playSymbols.erase(std::remove(playSymbols.begin(),playSymbols.end(),playerOne),playSymbols.end());
 				std::uniform_int_distribution<int> choiceAI(0, 5);
 				playerTwo = playSymbols[choiceAI(generator)]; //AI will be player 2
+				playSymbols = {'X','O','@','$','%','&'};			
 				break;
 			}
-		}
-	}
-	
-	void colorPrint(const char chr){
-		unsigned int color;
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		
-		//if it's a number
-		if(std::isdigit(chr)) color = 8;
-		if(chr==playerOne) color = 1;
-		if(chr==playerTwo) color = 4;
-		SetConsoleTextAttribute(hConsole,color);
-		std::cout<<chr;
-		//change the color back to white
-		SetConsoleTextAttribute(hConsole,7);
-	}
-
-	void displayBoard(){
-		for(unsigned int a = 0; a < 3; a++){
-			for(unsigned int b = 0; b < 3; b++){
-				std::cout<<"| ";
-				colorPrint(board.at(coords(a,b)));
-				std::cout<<" |";
-			}
-			std::cout<<"\n";
 		}
 	}
 	
@@ -193,6 +168,31 @@ class tictactoe{
 
 		board[coords(xMove,yMove)] = playerTwo;
 	}
+	
+	void colorPrint(const char chr){
+		unsigned int color;
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		
+		//if it's a number
+		if(std::isdigit(chr)) color = 8;
+		if(chr==playerOne) color = 1;
+		if(chr==playerTwo) color = 4;
+		SetConsoleTextAttribute(hConsole,color);
+		std::cout<<chr;
+		//change the color back to white
+		SetConsoleTextAttribute(hConsole,7);
+	}
+
+	void displayBoard(){
+		for(unsigned int a = 0; a < 3; a++){
+			for(unsigned int b = 0; b < 3; b++){
+				std::cout<<"| ";
+				colorPrint(board.at(coords(a,b)));
+				std::cout<<" |";
+			}
+			std::cout<<"\n";
+		}
+	}
 
 	public:
 	tictactoe(){}	
@@ -244,20 +244,24 @@ class tictactoe{
 	}
 	
 	void run(){
-		gameDecision=0;
 		while(true){
-			std::cout<<"Type in the amount of players you'd like to play with.";
+			gameDecision=0;
+			std::cout<<"Type in the amount of players you'd like to play with.\n";
 			while(gameDecision < 1 || gameDecision > 2){
 				std::cin>>gameDecision;
 			}
 			if(gameDecision==1) onePlayerMode();
 			if(gameDecision==2) twoPlayerMode();
+			board={'1','2','3','4','5','6','7','8','9'}; //reset board
 			std::cout<<"\nEnter 1 if you'd like to play again.";
 			std::cin>>gameDecision;
 			if(gameDecision!=1) break;
 		}
 	}
-	
+	//Fixed bug where it loops your current decision
+	//Fixed bug where board doesn't reset
+	//Fixed so player decision is on separate line.
+	//TODO: FIX BOARD WHERE COMPUTER USES THE SAME CHARACTER AS YOU
 	
 };
 
