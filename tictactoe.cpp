@@ -89,7 +89,7 @@ unsigned int tictactoe::coords(const unsigned int x, const unsigned int y){
 
 bool tictactoe::checkFull(){
 	for(int i = 0; i < 9;i++){
-		if(board[i]>=49 && board[i]<=57) return false;
+		if(std::isdigit(board[i])) return false;
 	}
 	return true;
 }
