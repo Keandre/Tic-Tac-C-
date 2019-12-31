@@ -1,7 +1,8 @@
-#include "tictactoe.h"
-#include <string>
-
+#include "board.hpp"
+#include <iostream>
 int main(){
-	tictactoe game;
-	game.run();
+	int b;
+	std::cout<<"bro";
+	while(std::cin>>b){
+	}
 }
